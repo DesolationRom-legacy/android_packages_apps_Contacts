@@ -293,18 +293,5 @@
     <string name="content_description_recent_call" msgid="6204048362763219585">"近期通话。<xliff:g id="CALL_DETAILS">%s</xliff:g>。点按可回拨"</string>
     <string name="menu_copyTo">"复制到"</string>
     <string name="no_empty_email_in_usim">"卡上电子邮件空间已满，部分邮件信息将不会复制 "</string>
-    <string name="add_to_white">加入白名单</string>
-    <string name="add_to_black">加入黑名单</string>
-    <string name="title_del_call">删除</string>
-    <string name="delete_call_title">删除通话记录</string>
-    <string name="delete_call_message">删除通话记录 ...</string>
-    <string name="delete_call_alert">"确定要删除选中的通话记录吗?"</string>
-
-    <string name="title_add_members">"添加成员"</string>
-    <string name="title_move_members">"移动成员"</string>
-    <string name="message_add_members">"添加成员..."</string>
-    <string name="message_move_members">"移动成员..."</string>
-    <string name="cancel_operation">"操作取消"</string>
-    <string name="message_can_not_move_members">"不能移动成员"</string>
     <string name="message_from_you_prefix" msgid="7180706529908434482">"您：<xliff:g id="SMS_BODY">%s</xliff:g>"</string>
 </resources>

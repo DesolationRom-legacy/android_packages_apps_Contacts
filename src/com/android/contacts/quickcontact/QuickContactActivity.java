@@ -30,9 +30,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -318,16 +316,6 @@ public class QuickContactActivity extends ContactsActivity {
     private static final int MIN_NUM_COLLAPSED_RECENT_ENTRIES_SHOWN = 3;
     private static final int CARD_ENTRY_ID_EDIT_CONTACT = -2;
 
-    private boolean isFireWallInstalled = false;
-    private static final String FIREWALL_APK_NAME = "com.android.firewall";
-    private static final String FIREWALL_BLACK_WHITE_LIST = "com.android.firewall.FirewallListPage";
-
-    private static final String NAME_KEY = "name";
-    private static final String NUMBER_KEY = "number";
-    private static final String PERSON_KEY = "personid";
-    private static final String MODE_KEY = "mode";
-    private static final int MAX_NUM_LENGTH = 3; // add limit length to show IP call item
-
     private static final int[] mRecentLoaderIds = new int[]{
         LOADER_SMS_ID,
         LOADER_CALENDAR_ID,
@@ -422,10 +410,13 @@ public class QuickContactActivity extends ContactsActivity {
         static final int CLEAR_DEFAULT = 1;
         static final int SET_DEFAULT = 2;
         static final int EDIT_BEFORE_CALL = 3;
+<<<<<<< HEAD
         static final int ADD_TO_BLACKLIST = 4;
         static final int ADD_TO_WHITELIST = 5;
         static final int IPCALL1 = 6;
         static final int IPCALL2 = 7; // add for new feature: ip call prefix
+=======
+>>>>>>> parent of c24b0a2... Support adding contacts to blacklist and whitelist
     }
 
     private final OnCreateContextMenuListener mEntryContextMenuListener =
@@ -468,6 +459,7 @@ public class QuickContactActivity extends ContactsActivity {
             if (Phone.CONTENT_ITEM_TYPE.equals(info.getMimeType())) {
                 menu.add(ContextMenu.NONE, ContextMenuIds.EDIT_BEFORE_CALL,
                         ContextMenu.NONE, getString(R.string.edit_before_call));
+<<<<<<< HEAD
 
                 if (isFireWallInstalled) {
                     menu.add(ContextMenu.NONE, ContextMenuIds.ADD_TO_BLACKLIST,
@@ -498,6 +490,8 @@ public class QuickContactActivity extends ContactsActivity {
                                 com.android.contacts.common.R.string.ip_call_by_slot, sub2Name));
                     }
                 }
+=======
+>>>>>>> parent of c24b0a2... Support adding contacts to blacklist and whitelist
             }
         }
     };
@@ -530,6 +524,7 @@ public class QuickContactActivity extends ContactsActivity {
             case ContextMenuIds.EDIT_BEFORE_CALL:
                 callByEdit(menuInfo.getData());
                 return true;
+<<<<<<< HEAD
             case ContextMenuIds.ADD_TO_BLACKLIST:
                 return false;
             case ContextMenuIds.ADD_TO_WHITELIST:
@@ -540,6 +535,8 @@ public class QuickContactActivity extends ContactsActivity {
             case ContextMenuIds.IPCALL2:
                 ipCallBySlot(menuInfo.getData(), SimContactsConstants.SUB_2);
                 return true;
+=======
+>>>>>>> parent of c24b0a2... Support adding contacts to blacklist and whitelist
             default:
                 throw new IllegalArgumentException("Unknown menu option " + item.getItemId());
         }
@@ -836,6 +833,7 @@ public class QuickContactActivity extends ContactsActivity {
         Trace.endSection();
     }
 
+<<<<<<< HEAD
     private boolean isFirewalltalled() {
         boolean installed = false;
         try {
@@ -849,6 +847,8 @@ public class QuickContactActivity extends ContactsActivity {
         return installed;
     }
 
+=======
+>>>>>>> parent of c24b0a2... Support adding contacts to blacklist and whitelist
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_CONTACT_EDITOR_ACTIVITY &&
@@ -1510,32 +1510,9 @@ public class QuickContactActivity extends ContactsActivity {
                 primaryContentDescription.append(res.getString(R.string.call_other)).append(" ");
                 header = sBidiFormatter.unicodeWrap(phone.buildDataString(context, kind),
                         TextDirectionHeuristics.LTR);
-
-                // white and black listintent
-                Bundle blackBundle = new Bundle();
-                blackBundle.putString(NUMBER_KEY, header);
-                blackBundle.putString(MODE_KEY, "blacklist");
-
-                Intent blackIntent = new Intent();
-                blackBundle.putString(NAME_KEY, contactData.getDisplayName());// optional
-                blackIntent.setClassName(FIREWALL_APK_NAME, FIREWALL_BLACK_WHITE_LIST);
-                blackIntent.setAction(Intent.ACTION_INSERT);
-                blackIntent.putExtras(blackBundle);
-
-                Bundle whiteBundle = new Bundle();
-                whiteBundle.putString(NUMBER_KEY, header);
-                whiteBundle.putInt(PERSON_KEY, 0);// optional
-                whiteBundle.putString(MODE_KEY, "whitelist");
-
-                Intent whiteIntent = new Intent();
-                whiteIntent.setClassName(FIREWALL_APK_NAME, FIREWALL_BLACK_WHITE_LIST);
-                whiteIntent.setAction(Intent.ACTION_INSERT);
-                whiteIntent.putExtras(whiteBundle);
-
                 entryContextMenuInfo = new EntryContextMenuInfo(header,
                         res.getString(R.string.phoneLabelsGroup), dataItem.getMimeType(),
-                        dataItem.getId(), dataItem.isSuperPrimary(), header,
-                        whiteIntent, blackIntent );
+                        dataItem.getId(), dataItem.isSuperPrimary(), header);
                 if (phone.hasKindTypeColumn(kind)) {
                     text = Phone.getTypeLabel(res, phone.getKindTypeColumn(kind),
                             phone.getLabel()).toString();
