@@ -316,6 +316,8 @@ public class QuickContactActivity extends ContactsActivity {
     private static final int MIN_NUM_COLLAPSED_RECENT_ENTRIES_SHOWN = 3;
     private static final int CARD_ENTRY_ID_EDIT_CONTACT = -2;
 
+    private static final int MAX_NUM_LENGTH = 3; // add limit length to show IP call item
+
     private static final int[] mRecentLoaderIds = new int[]{
         LOADER_SMS_ID,
         LOADER_CALENDAR_ID,
@@ -410,13 +412,8 @@ public class QuickContactActivity extends ContactsActivity {
         static final int CLEAR_DEFAULT = 1;
         static final int SET_DEFAULT = 2;
         static final int EDIT_BEFORE_CALL = 3;
-<<<<<<< HEAD
-        static final int ADD_TO_BLACKLIST = 4;
-        static final int ADD_TO_WHITELIST = 5;
         static final int IPCALL1 = 6;
         static final int IPCALL2 = 7; // add for new feature: ip call prefix
-=======
->>>>>>> parent of c24b0a2... Support adding contacts to blacklist and whitelist
     }
 
     private final OnCreateContextMenuListener mEntryContextMenuListener =
@@ -459,17 +456,6 @@ public class QuickContactActivity extends ContactsActivity {
             if (Phone.CONTENT_ITEM_TYPE.equals(info.getMimeType())) {
                 menu.add(ContextMenu.NONE, ContextMenuIds.EDIT_BEFORE_CALL,
                         ContextMenu.NONE, getString(R.string.edit_before_call));
-<<<<<<< HEAD
-
-                if (isFireWallInstalled) {
-                    menu.add(ContextMenu.NONE, ContextMenuIds.ADD_TO_BLACKLIST,
-                        ContextMenu.NONE, getString(R.string.add_to_black)).setIntent(
-                        info.getBlackIntent());
-
-                    menu.add(ContextMenu.NONE, ContextMenuIds.ADD_TO_WHITELIST,
-                        ContextMenu.NONE, getString(R.string.add_to_white)).setIntent(
-                        info.getWhiteIntent());
-                }
 
                 // add limit length to show IP call item
                 if (info.getData().length() > MAX_NUM_LENGTH) {
@@ -490,8 +476,6 @@ public class QuickContactActivity extends ContactsActivity {
                                 com.android.contacts.common.R.string.ip_call_by_slot, sub2Name));
                     }
                 }
-=======
->>>>>>> parent of c24b0a2... Support adding contacts to blacklist and whitelist
             }
         }
     };
@@ -524,19 +508,12 @@ public class QuickContactActivity extends ContactsActivity {
             case ContextMenuIds.EDIT_BEFORE_CALL:
                 callByEdit(menuInfo.getData());
                 return true;
-<<<<<<< HEAD
-            case ContextMenuIds.ADD_TO_BLACKLIST:
-                return false;
-            case ContextMenuIds.ADD_TO_WHITELIST:
-                return false;
             case ContextMenuIds.IPCALL1:
                 ipCallBySlot(menuInfo.getData(), SimContactsConstants.SUB_1);
                 return true;
             case ContextMenuIds.IPCALL2:
                 ipCallBySlot(menuInfo.getData(), SimContactsConstants.SUB_2);
                 return true;
-=======
->>>>>>> parent of c24b0a2... Support adding contacts to blacklist and whitelist
             default:
                 throw new IllegalArgumentException("Unknown menu option " + item.getItemId());
         }
@@ -833,22 +810,6 @@ public class QuickContactActivity extends ContactsActivity {
         Trace.endSection();
     }
 
-<<<<<<< HEAD
-    private boolean isFirewalltalled() {
-        boolean installed = false;
-        try {
-            ApplicationInfo info = getApplicationContext().getPackageManager().getApplicationInfo(
-                    FIREWALL_APK_NAME, PackageManager.GET_PROVIDERS);
-            installed = info != null;
-        } catch (NameNotFoundException e) {
-            installed = false;
-        }
-        Log.d(TAG,"Is Firewall installed ? " + installed);
-        return installed;
-    }
-
-=======
->>>>>>> parent of c24b0a2... Support adding contacts to blacklist and whitelist
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_CONTACT_EDITOR_ACTIVITY &&
